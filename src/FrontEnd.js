@@ -1,10 +1,19 @@
 import { useState } from "react";
-import wallpaper from "./static/waldo wallpaper 2.jpg";
+import wallpaper from "./static/findWaldo.jpg";
 import waldoCropped from "./static/waldoCropped.jpg";
 
 function FrontEnd() {
-  const [XPercent, setXPercent] = useState(10);
-  const [YPercent, setYPercent] = useState(10);
+  const [XPercent, setXPercent] = useState(0);
+  const [YPercent, setYPercent] = useState(0);
+
+  const body = document.getElementsByTagName("body")[0];
+  body.addEventListener("click", (event) => {
+    if (event.target.className !== "wallpaperImage") {
+      document.getElementsByClassName("dropdownDiv")[0].classList.add("hidden");
+      console.log(event.target.className);
+    }
+  });
+
   function clickPhoto(event) {
     setXPercent(
       (event.nativeEvent.offsetX / event.nativeEvent.target.offsetWidth) * 100
@@ -12,27 +21,48 @@ function FrontEnd() {
     setYPercent(
       (event.nativeEvent.offsetY / event.nativeEvent.target.offsetHeight) * 100
     );
+    document
+      .getElementsByClassName("dropdownDiv")[0]
+      .classList.remove("hidden");
     console.log(XPercent, " and ", YPercent);
   }
 
+  function handleBtnClick(event) {
+    event.target.classList.add("hidden");
+    document.getElementsByClassName("imgDiv")[0].classList.remove("hidden");
+  }
+
   return (
-    <div class="frontEndDiv">
-      <div class="titleDiv">
-        <img class="waldoWelcomeImg" src={waldoCropped} />
-        <h2 class="title" alt="Waldo face image">
-          <span>Where's</span> <span class="badge bg-danger">Waldo?</span>
+    <div className="frontEndDiv">
+      <div className="titleDiv">
+        <img className="waldoWelcomeImg" src={waldoCropped} alt="Waldo face" />
+        <h2 className="title">
+          <span>Where's</span> <span className="badge bg-danger">Waldo?</span>
         </h2>
       </div>
-      <button type="button" class="btn btn-outline-warning startBtn">
+      <button
+        type="button"
+        onClick={handleBtnClick}
+        className="btn btn-outline-warning startBtn"
+      >
         Find Me!
       </button>
-      <div class="imgDiv">
-        <img class="wallpaperImage" src={wallpaper} onClick={clickPhoto} alt="Waldo wallpaper Image"/>
+      <div className="imgDiv hidden">
+        <img
+          className="wallpaperImage"
+          src={wallpaper}
+          onClick={clickPhoto}
+          alt="Waldo wallpaper"
+        />
         <div
-          class="me"
-          style={{ color: "red", left: XPercent + "%", top: YPercent + "%", padding: 0, margin: 0, border: "solid 1px red" }}
+          className="dropdownDiv hidden"
+          style={{ left: XPercent + "%", top: YPercent + "%" }}
         >
-          Me
+          <ul>
+            <li>Waldo</li>
+            <li>Odlaw</li>
+            <li>Wizard</li>
+          </ul>
         </div>
       </div>
     </div>
