@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
 import { useEffect, useState } from "react";
-//import wallpaper from "./static/findWaldo.jpg";
+import wallpaper from "./static/findWaldo.jpg"; // *** delete this line too after refactoring is complete
 import waldoCropped from "./static/waldoCropped.jpg";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -30,19 +30,35 @@ function getTimer() {
   return timeInSec;
 }
 
-const startTime = getTimer();
-
 /*  
 ! * calculate seconds digits ------>
 * * remainder = timeInSeconds % 60;
 * * if (remainder < 10) then concat "0" before remainder;
 */
+function calcSec(timeInSec) {
+  timeInSec = Number(timeInSec);
+  let remainder = timeInSec % 60;
+  if (remainder < 10) {
+    remainder = "0" + remainder;
+    return remainder;
+  }
+  return remainder;
+}
 
 /*
 ! * calculate minutes digits ------->
 * * quotient = Math.floor(timeInSeconds/60);
 * * if (quotient < 10) then concat "0" before quotient;
 */
+function calcMin(timeInSec) {
+  timeInSec = Number(timeInSec);
+  let quotient = Math.floor(timeInSec / 60);
+  if (quotient < 10) {
+    quotient = "0" + quotient;
+    return quotient;
+  }
+  return quotient;
+}
 
 function FrontEnd() {
   const [url, setUrl] = useState("");
@@ -71,24 +87,34 @@ function FrontEnd() {
     console.log(XPercent, " and ", YPercent);
   }
 
-  async function handleBtnClick(event) {
-    setUrl(await imageRef.getDownloadURL());
-    event.target.classList.add("hidden");
-    document.getElementsByClassName("imgDiv")[0].classList.remove("hidden");
-  }
-
-  const [time, setTime] = useState(startTime);
-
-  useEffect(() => {
-    let timerID = setInterval(() => clock(), 1000);
-    return function cleanup() {
-      clearInterval(timerID);
-    };
-  });
+  const [min, setMin] = useState("00");
+  const [sec, setSec] = useState("00");
+  const [startClock, setStartClock] = useState(false);
 
   function clock() {
-    let timeDiff = getTimer() - startTime;
-    setTime(timeDiff);
+    if (startClock != false) {
+      let timeDiff = getTimer() - startClock;
+      let sec = calcSec(timeDiff);
+      let min = calcMin(timeDiff);
+      setSec(sec);
+      setMin(min);
+    }
+  }
+
+  useEffect(() => {
+    if (startClock != false) {
+      let timerID = setInterval(() => clock(), 1000);
+      return function cleanup() {
+        clearInterval(timerID);
+      };
+    }
+  });
+
+  async function handleBtnClick(event) {
+    //setUrl(await imageRef.getDownloadURL()); // *** re-enable this after the refactoring is complete
+    event.target.classList.add("hidden");
+    document.getElementsByClassName("imgDiv")[0].classList.remove("hidden");
+    setStartClock(getTimer());
   }
 
   return (
@@ -99,8 +125,8 @@ function FrontEnd() {
           <span>Where's</span> <span className="badge bg-danger">Waldo?</span>
         </h2>
         <div className="timerDiv">
-          <div className="minuteDiv">{time}</div>:
-          <div className="secondDiv">00</div>
+          <div className="minuteDiv">{min}</div>:
+          <div className="secondDiv">{sec}</div>
         </div>
       </div>
 
@@ -113,8 +139,9 @@ function FrontEnd() {
       </button>
       <div className="imgDiv hidden">
         <img
+          id="wallImg"
           className="wallpaperImage"
-          src={url}
+          src={wallpaper}
           onClick={clickPhoto}
           alt="Waldo wallpaper"
         />
