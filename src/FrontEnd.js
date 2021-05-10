@@ -16,12 +16,33 @@ const firebaseConfig = {
   measurementId: "G-MR7WT9LVY1",
 };
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
-//const db = firebase.firestore();
-const storage = firebase.storage();
-const storageRef = storage.ref();
-const imageRef = storageRef.child("findWaldo.jpg");
+// const db = firebase.firestore();
+// const storage = firebase.storage();
+// const storageRef = storage.ref();
+// const imageRef = storageRef.child("findWaldo.jpg");
+const imageRef = ""; // *** Delete this line after refactoring the whole code
+
+function getTimer() {
+  console.log("I was Run");
+  const timeInSec = Math.floor(new Date().getTime() / 1000);
+  return timeInSec;
+}
+
+const startTime = getTimer();
+
+/*  
+! * calculate seconds digits ------>
+* * remainder = timeInSeconds % 60;
+* * if (remainder < 10) then concat "0" before remainder;
+*/
+
+/*
+! * calculate minutes digits ------->
+* * quotient = Math.floor(timeInSeconds/60);
+* * if (quotient < 10) then concat "0" before quotient;
+*/
 
 function FrontEnd() {
   const [url, setUrl] = useState("");
@@ -56,14 +77,18 @@ function FrontEnd() {
     document.getElementsByClassName("imgDiv")[0].classList.remove("hidden");
   }
 
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState(startTime);
 
   useEffect(() => {
     let timerID = setInterval(() => clock(), 1000);
+    return function cleanup() {
+      clearInterval(timerID);
+    };
   });
 
   function clock() {
-    setTime(new Date());
+    let timeDiff = getTimer() - startTime;
+    setTime(timeDiff);
   }
 
   return (
@@ -73,7 +98,10 @@ function FrontEnd() {
         <h2 className="title">
           <span>Where's</span> <span className="badge bg-danger">Waldo?</span>
         </h2>
-        <div class="timerDiv">{time.toLocaleTimeString()}</div>
+        <div className="timerDiv">
+          <div className="minuteDiv">{time}</div>:
+          <div className="secondDiv">00</div>
+        </div>
       </div>
 
       <button

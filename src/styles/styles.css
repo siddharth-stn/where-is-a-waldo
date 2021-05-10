@@ -19,6 +19,7 @@ body {
   align-items: center;
   padding-top: 10px;
   padding-bottom: 10px;
+  position: relative;
 }
 
 .waldoWelcomeImg {
@@ -36,6 +37,28 @@ h2 span:first-child {
   color: rgb(42, 10, 221);
 }
 
+.timerDiv {
+  color: #45E808;
+  border: black 2px solid;
+  position: absolute;
+  top: 7px;
+  right: 250px;
+  display: flex;
+  font-family: 'digital-7regular', Arial, Helvetica, sans-serif;
+  font-size: 2.5rem;
+  background: url("../static/Green\ digital\ scanner\ or\ energy\ waves\ Abstract\ animation.png");
+  border-radius: 5px;
+  width: 150px;
+  justify-content: center;
+}
+
+.minuteDiv {
+  padding-right: 5px;
+}
+
+.secondDiv {
+  padding-left: 5px;
+}
 
 .imgDiv {
   position: relative;
