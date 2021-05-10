@@ -4,6 +4,9 @@ import "firebase/storage";
 import { useEffect, useState } from "react";
 import wallpaper from "./static/findWaldo.jpg"; // *** delete this line too after refactoring is complete
 import waldoCropped from "./static/waldoCropped.jpg";
+import odlaw from "./static/odlaw.png";
+import waldo from "./static/waldo.png";
+import wizard from "./static/wizard.png";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -76,11 +79,11 @@ function FrontEnd() {
 
   function clickPhoto(event) {
     setXPercent(
-      (event.nativeEvent.offsetX / event.nativeEvent.target.offsetWidth) * 100
-    );
+      Math.floor((event.nativeEvent.offsetX / event.nativeEvent.target.offsetWidth) * 100
+    ));
     setYPercent(
-      (event.nativeEvent.offsetY / event.nativeEvent.target.offsetHeight) * 100
-    );
+      Math.floor((event.nativeEvent.offsetY / event.nativeEvent.target.offsetHeight) * 100
+    ));
     document
       .getElementsByClassName("dropdownDiv")[0]
       .classList.remove("hidden");
@@ -129,31 +132,46 @@ function FrontEnd() {
           <div className="secondDiv">{sec}</div>
         </div>
       </div>
-
-      <button
-        type="button"
-        onClick={handleBtnClick}
-        className="btn btn-outline-warning startBtn"
-      >
-        Find Me!
-      </button>
-      <div className="imgDiv hidden">
-        <img
-          id="wallImg"
-          className="wallpaperImage"
-          src={wallpaper}
-          onClick={clickPhoto}
-          alt="Waldo wallpaper"
-        />
-        <div
-          className="dropdownDiv hidden"
-          style={{ left: XPercent + "%", top: YPercent + "%" }}
+      <div className="mainDiv">
+        <div className="sideDiv">
+          <div className="waldoFaceDiv">
+            <p>Waldo</p>
+            <img src={waldo} />
+          </div>
+          <div className="odlawFaceDiv">
+            <p>Odlaw</p>
+            <img src={odlaw} />
+          </div>
+          <div className="wizardFaceDiv">
+            <p>Wizard</p>
+            <img src={wizard} />
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={handleBtnClick}
+          className="btn btn-outline-warning startBtn"
         >
-          <ul>
-            <li>Waldo</li>
-            <li>Odlaw</li>
-            <li>Wizard</li>
-          </ul>
+          Find Me!
+        </button>
+        <div className="imgDiv hidden">
+          <img
+            id="wallImg"
+            className="wallpaperImage"
+            src={wallpaper}
+            onClick={clickPhoto}
+            alt="Waldo wallpaper"
+          />
+          <div
+            className="dropdownDiv hidden"
+            style={{ left: XPercent + "%", top: YPercent + "%" }}
+          >
+            <ul>
+              <li>Waldo</li>
+              <li>Odlaw</li>
+              <li>Wizard</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
