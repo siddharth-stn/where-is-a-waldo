@@ -199,3 +199,57 @@ h2 span:first-child {
   -webkit-box-shadow: -4px 1px 20px 6px rgba(233,21,21,0.75);
   -moz-box-shadow: -4px 1px 20px 6px rgba(233,21,21,0.75);;
 }
+
+.leaderBoardDiv {
+  display: block;
+  border: black solid 2px;
+  padding: 5px;
+}
+
+#enterNameDiv {
+  background-color: white;
+  padding: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.final {
+  width: 100%;
+  height: 75vh;
+  background-color: white;
+}
+
+#finalDiv {
+  height: 70vh;
+  margin-top: 20px;
+  overflow: scroll;
+}
+
+#finalDiv ol {
+  position: relative;
+  scroll-behavior: auto;
+  margin-left: 200px;
+  display: flex;
+  color: black;
+  padding-left: 0px;
+  flex-direction: column;
+  
+}
+
+#finalDiv li {
+  position: relative;
+  font-size: 2rem;
+} 
+
+#finalDiv li span {
+  position: absolute;
+  right: 200px;
+}
+
+#finalDiv ol hr {
+  display: block;
+  left: 0px;
+  width: 70%;
+  height: 5px;
+  color: green;
+}

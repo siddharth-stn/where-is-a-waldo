@@ -8,7 +8,7 @@ import odlaw from "./static/odlaw.png";
 import waldo from "./static/waldo.png";
 import wizard from "./static/wizard.png";
 import check from "./static/checkMark.png";
-import { cleanup } from "@testing-library/react";
+import LeaderBoard from "../src/LeaderBoard.js";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -150,6 +150,8 @@ function FrontEnd() {
                     document.getElementById("wallImg").classList.add("hidden");
                     setStartClock("false");
                     console.log(min, " : ", sec);
+                    let wizardFace =
+                      document.getElementsByClassName("wizardFaceDiv")[0];
                   }
                 }
               } else {
@@ -265,13 +267,14 @@ function FrontEnd() {
         >
           Find Me!
         </button>
-        <div className="imgDiv hidden">
+        <div className="imgDiv hidden final">
+        <LeaderBoard/>
           <div id="indicatorDiv" className="hidden">
             Wrong Choice!!!!
           </div>
           <img
             id="wallImg"
-            className="wallpaperImage"
+            className="wallpaperImage hidden"
             src={wallpaper}
             onClick={clickPhoto}
             alt="Waldo wallpaper"
