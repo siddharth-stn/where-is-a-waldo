@@ -8,6 +8,7 @@ import odlaw from "./static/odlaw.png";
 import waldo from "./static/waldo.png";
 import wizard from "./static/wizard.png";
 import check from "./static/checkMark.png";
+import { cleanup } from "@testing-library/react";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -116,6 +117,7 @@ function FrontEnd() {
                   Number(YPercent) >= Number(yLocationInDb[0]) &&
                   Number(YPercent) <= Number(yLocationInDb[1])
                 ) {
+                  // *** Code for correct selection --->
                   foundArray.push(name);
                   foundArray.forEach((item) => {
                     switch (item) {
@@ -143,9 +145,20 @@ function FrontEnd() {
                       liItemsArray.splice(index, 1);
                     }
                   });
+                  if (foundArray.length >= 3) {
+                    console.log("All Found");
+                    document.getElementById("wallImg").classList.add("hidden");
+                    setStartClock("false");
+                    console.log(min, " : ", sec);
+                  }
                 }
               } else {
-                console.log(`That's not ${name}`);
+                // *** Code for wrong selection --->
+                let indicatorDiv = document.getElementById("indicatorDiv");
+                indicatorDiv.classList.remove("hidden");
+                setTimeout(() => {
+                  indicatorDiv.classList.add("hidden");
+                }, 500);
               }
             });
           })
@@ -173,7 +186,6 @@ function FrontEnd() {
     document
       .getElementsByClassName("dropdownDiv")[0]
       .classList.remove("hidden");
-    //console.log(xper, " and ", yper);
   }
 
   const [min, setMin] = useState("00");
@@ -191,7 +203,7 @@ function FrontEnd() {
   }
 
   useEffect(() => {
-    if (startClock !== false) {
+    if (startClock !== false && foundArray.length < 3) {
       let timerID = setInterval(() => clock(), 1000);
       return function cleanup() {
         clearInterval(timerID);
