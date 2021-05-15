@@ -201,16 +201,21 @@ h2 span:first-child {
 }
 
 .leaderBoardDiv {
-  display: block;
-  border: black solid 2px;
+  position: relative;
   padding: 5px;
 }
 
 #enterNameDiv {
   background-color: white;
   padding: 10px;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
+  width: 70%;
+  margin: auto;
+}
+
+#enterNameDiv button {
+  margin-left: 40px;
 }
 
 .final {

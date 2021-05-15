@@ -2,7 +2,6 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
 import { useEffect, useState } from "react";
-import wallpaper from "./static/findWaldo.jpg"; // *** delete this line too after refactoring is complete
 import waldoCropped from "./static/waldoCropped.jpg";
 import odlaw from "./static/odlaw.png";
 import waldo from "./static/waldo.png";
@@ -24,10 +23,10 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
-// const storage = firebase.storage();
-// const storageRef = storage.ref();
-// const imageRef = storageRef.child("findWaldo.jpg");
-const imageRef = ""; // *** Delete this line after refactoring the whole code
+const storage = firebase.storage();
+const storageRef = storage.ref();
+const imageRef = storageRef.child("findWaldo.jpg");
+
 
 function getTimer() {
   const timeInSec = Math.floor(new Date().getTime() / 1000);
@@ -81,7 +80,6 @@ function FrontEnd() {
       event.target.tagName !== "LI"
     ) {
       document.getElementsByClassName("dropdownDiv")[0].classList.add("hidden");
-      console.log(event.target.tagName);
     }
     return body.removeEventListener("click", getBodyClick);
   });
@@ -138,6 +136,9 @@ function FrontEnd() {
                           .getElementById("wizardTickDiv")
                           .classList.remove("hidden");
                         break;
+
+                       default: 
+                       break; 
                     }
                   });
                   liItemsArray.forEach((item, index) => {
@@ -146,12 +147,10 @@ function FrontEnd() {
                     }
                   });
                   if (foundArray.length >= 3) {
-                    console.log("All Found");
                     document.getElementById("wallImg").classList.add("hidden");
                     setStartClock("false");
-                    console.log(min, " : ", sec);
-                    let wizardFace =
-                      document.getElementsByClassName("wizardFaceDiv")[0];
+                    document.getElementsByClassName("imgDiv")[0].classList.add("final");
+                    document.getElementById("leaderBoardDiv").classList.remove("hidden");
                   }
                 }
               } else {
@@ -214,14 +213,14 @@ function FrontEnd() {
   });
 
   async function handleBtnClick(event) {
-    //setUrl(await imageRef.getDownloadURL()); // *** re-enable this after the refactoring is complete
+    setUrl(await imageRef.getDownloadURL()); 
     event.target.classList.add("hidden");
     document.getElementsByClassName("imgDiv")[0].classList.remove("hidden");
     setStartClock(getTimer());
   }
 
   function showLiItems() {
-    return liItemsArray.map((item) => <li>{item}</li>);
+    return liItemsArray.map((item, index) => <li key={index}>{item}</li>);
   }
 
   return (
@@ -240,21 +239,21 @@ function FrontEnd() {
         <div className="sideDiv">
           <div className="waldoFaceDiv">
             <div id="waldoTickDiv" className="tickWaldo hidden">
-              <img src={check} />
+              <img src={check} alt="check Mark"/>
             </div>
             <p>Waldo</p>
             <img src={waldo} alt="waldo face" />
           </div>
           <div className="odlawFaceDiv">
             <div id="odlawTickDiv" className="tickOdlaw hidden">
-              <img src={check} />
+              <img src={check} alt="check Mark"/>
             </div>
             <p>Odlaw</p>
             <img src={odlaw} alt="odlaw face" />
           </div>
           <div className="wizardFaceDiv">
             <div id="wizardTickDiv" className="tickWizard hidden">
-              <img src={check} />
+              <img src={check} alt="check Mark"/>
             </div>
             <p>Wizard</p>
             <img src={wizard} alt="wizard face" />
@@ -267,15 +266,15 @@ function FrontEnd() {
         >
           Find Me!
         </button>
-        <div className="imgDiv hidden final">
-        <LeaderBoard/>
+        <div className="imgDiv hidden">
+        <LeaderBoard timeMin={min} timeSec={sec}/>
           <div id="indicatorDiv" className="hidden">
             Wrong Choice!!!!
           </div>
           <img
             id="wallImg"
-            className="wallpaperImage hidden"
-            src={wallpaper}
+            className="wallpaperImage"
+            src={url}
             onClick={clickPhoto}
             alt="Waldo wallpaper"
           />
@@ -291,4 +290,4 @@ function FrontEnd() {
   );
 }
 
-export default FrontEnd;
+export {FrontEnd, db};
