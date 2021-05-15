@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/where-is-a-waldo/static/css/main.96968aa2.chunk.css",
+    "main.js": "/where-is-a-waldo/static/js/main.c7a4255b.chunk.js",
+    "main.js.map": "/where-is-a-waldo/static/js/main.c7a4255b.chunk.js.map",
+    "runtime-main.js": "/where-is-a-waldo/static/js/runtime-main.61624bd6.js",
+    "runtime-main.js.map": "/where-is-a-waldo/static/js/runtime-main.61624bd6.js.map",
+    "static/js/2.6027e840.chunk.js": "/where-is-a-waldo/static/js/2.6027e840.chunk.js",
+    "static/js/2.6027e840.chunk.js.map": "/where-is-a-waldo/static/js/2.6027e840.chunk.js.map",
+    "index.html": "/where-is-a-waldo/index.html",
+    "static/css/main.96968aa2.chunk.css.map": "/where-is-a-waldo/static/css/main.96968aa2.chunk.css.map",
+    "static/js/2.6027e840.chunk.js.LICENSE.txt": "/where-is-a-waldo/static/js/2.6027e840.chunk.js.LICENSE.txt",
+    "static/media/styles.css": "/where-is-a-waldo/static/media/Green digital scanner or energy waves Abstract animation.73e0f5dd.png",
+    "static/media/checkMark.a6cc88d6.png": "/where-is-a-waldo/static/media/checkMark.a6cc88d6.png",
+    "static/media/stylesheet.css": "/where-is-a-waldo/static/media/digital-7-webfont.c5ae1510.woff2",
+    "static/media/odlaw.5ababa9b.png": "/where-is-a-waldo/static/media/odlaw.5ababa9b.png",
+    "static/media/waldo.ead75c3d.png": "/where-is-a-waldo/static/media/waldo.ead75c3d.png",
+    "static/media/waldoCropped.dc070961.jpg": "/where-is-a-waldo/static/media/waldoCropped.dc070961.jpg",
+    "static/media/wizard.152c5eff.png": "/where-is-a-waldo/static/media/wizard.152c5eff.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.61624bd6.js",
+    "static/js/2.6027e840.chunk.js",
+    "static/css/main.96968aa2.chunk.css",
+    "static/js/main.c7a4255b.chunk.js"
+  ]
+}
